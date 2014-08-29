@@ -28,10 +28,11 @@ app.get("/yo", function(req, res) {
 		USERNAME : req.query.username
 	 };
 	request.post(config.get("YO_API_SEND_URL"), { form : { api_token : config.get("YO_API_KEY"), username : req.query.username, link : url_template(model) } }, function(err, response) {
-		console.log(response);
-		if(err) {
+		if(err || response.statusCode !== 200) {
+			console.log("ERROR Sending Yo to " + req.query.username + " - " + response.body);
 			return res.send("ERROR: " + err);
 		}
+		console.log("Success sending Yo to " + req.query.username + " - " + response.body);
 		res.send(url_template(model));
 	}); 
 });
