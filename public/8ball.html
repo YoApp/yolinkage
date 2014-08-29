@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
         
         <style>
             body, html {
@@ -23,23 +23,30 @@
             }
             
             #magic8FadeContainer {
+                transform: rotate(45deg);
+                position: absolute;
+                width: 37%;
+                height: 37%;
+                top: 27.3%;
+                left: 32%;
+                
                 display: none;
             }
             
             #magic8Center {
+                top: 0;
+                left: 0;
                 position: absolute;
-                width: 37%;
-                top: 27.3%;
-                left: 32%;
+                width: 100%;
             }
             
             #magic8Message {
                 position: absolute;
-                width: 37%;
-                height: 25%;
                 overflow: hidden;
-                top: 34%;
-                left: 32%;
+                text-align: center;
+                width: 100%;
+                left: 0;
+                top: 25%;
                 
                 display: inline-block;
                 
@@ -47,17 +54,37 @@
                 
                 font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
                 font-weight: 300;
-                font-size: 3.5vw;
+                font-size: 4.5vw;
             }
         </style>
         
         <script>
             $(window).on('load', function() {
                 $('#magic8Holder').fadeIn(function() {
-                
+                    var degrees = Math.floor(Math.random() * 360) + 1;
+                    
+                    $('#magic8FadeContainer').css({'-webkit-transform' : 'rotate('+ degrees +'deg)',
+                                 '-moz-transform' : 'rotate('+ degrees +'deg)',
+                                 '-ms-transform' : 'rotate('+ degrees +'deg)',
+                                 'transform' : 'rotate('+ degrees +'deg)'});
+                    
+                    
                     $('#magic8Message').html(decodeURIComponent(location.search.substr(1)));
-                    $('#magic8FadeContainer').fadeIn(2000);
-                
+                    $('#magic8FadeContainer').fadeIn(3000);
+                    
+                    var toDegree = degrees > 180 ? 360 : 0;
+                    
+                    $({deg: degrees}).animate({deg: toDegree}, {
+                        duration: 2000,
+                        step: function(now) {
+                            $('#magic8FadeContainer').css({
+                                'transform': 'rotate(' + now + 'deg)',
+                                '-webkit-transform': 'rotate(' + now + 'deg)',
+                                '-moz-transform': 'rotate(' + now + 'deg)',
+                                '-ms-transform': 'rotate(' + now + 'deg)'
+                            });
+                        }
+                    });
                 });
                 
                 function centerBall() {
