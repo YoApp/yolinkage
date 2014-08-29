@@ -53,9 +53,7 @@ function sendYo(model, tries, callback) {
 	}); 
 }
 
-// GET Endpoint triggered as the yo application callback
-// YO will call this and supply the username as a querystring
-app.get("/yo", function(req, res) {
+function build_model(req) {
 	var model = {
 		HOST : req.get("HOST"),
 		SCHEME : (req.connection.encrypted || req.headers['x-forwarded-proto'] === "https") ? "https" : "http",
@@ -63,6 +61,13 @@ app.get("/yo", function(req, res) {
 		USERNAME : req.query.username
 	};
 	model.link = url_template(model);
+	return model;
+}
+
+// GET Endpoint triggered as the yo application callback
+// YO will call this and supply the username as a querystring
+app.get("/yo", function(req, res) {
+	var model = build_model(req);
 	sendYo(model, 1, function(err, response) {
 		if(err || response.statusCode !== 200) {
 			console.log("ERROR sending Yo to " + req.query.username + " - " + response.body);
@@ -73,6 +78,11 @@ app.get("/yo", function(req, res) {
 			return res.send(model.link);
 		}
 	}); 
+});
+
+app.get("/go", function(req, res) {
+	var model = build_model(req);
+	res.redirect(model.link);
 });
 
 app.get("/", function(req, res) {
