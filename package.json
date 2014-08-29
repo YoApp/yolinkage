@@ -1,0 +1,18 @@
+{
+  "name": "yolink",
+  "version": "0.0.0",
+  "description": "Responds to justyo.co requests with a link to a page with a randomly selected item from a list",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Phillip Markert",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.8.6",
+    "morgan": "^1.2.3",
+    "nconf": "^0.6.9",
+    "request": "^2.40.0",
+    "underscore": "^1.7.0"
+  }
+}

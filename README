@@ -1,0 +1,7 @@
+This is a simple app for justyo where you can yo the callback
+and it will return a link to a page passing in an item picked from a list.
+
+Initial use-cases for this will be:
+Magic eight-ball
+Random Bible-verse
+Heads or Tails
