@@ -28,6 +28,7 @@ app.get("/yo", function(req, res) {
 		USERNAME : req.query.username
 	 };
 	request.post(config.get("YO_API_SEND_URL"), { form : { api_token : config.get("YO_API_KEY"), username : req.query.username, link : url_template(model) } }, function(err, response) {
+		console.log(response);
 		if(err) {
 			return res.send("ERROR: " + err);
 		}
