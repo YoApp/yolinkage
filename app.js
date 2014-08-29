@@ -65,6 +65,10 @@ app.get("/yo", function(req, res) {
 	}); 
 });
 
+app.get("/", function(req, res) {
+	res.redirect("/public/about.html");
+});
+
 app.listen(config.get("PORT"), function(err) {
 	if(err)
 		return console.error("Error - " + err);
