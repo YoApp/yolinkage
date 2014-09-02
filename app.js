@@ -31,11 +31,11 @@ function sendYo(model, tries, callback) {
 			if(/Rate limit exceeded. Only one Yo per recipient per minute./.test(response.body)) { // Need to find a less fragile way to detect this
 				if(tries < config.get("MAX_TRIES")) {
 					tries = tries + 1;
-					console.log("Rate limited YOing " + model.USERNAME + ", trying again in 60 seconds. Try #" + tries);
+					console.log("Rate limited YOing " + model.USERNAME + ", trying again in 30 seconds. Try #" + tries);
 					setTimeout(function() { 
 						console.log("Retrying for " + model.USERNAME);
 						sendYo(model, tries, function() {}); 
-					}, 60000);
+					}, 30000);
 					err = "Once per minute per user rate limit exceeded, will try again up to " + config.get("MAX_TRIES") + " times.";
 				}
 				else {
